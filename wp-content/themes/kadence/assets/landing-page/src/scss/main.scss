@@ -1,0 +1,1217 @@
+// Main SCSS for Landing Page
+// Kadence / Elementor matched breakpoints from custom-frontend
+$breakpoint-tablet: 900px;
+$breakpoint-mobile: 600px;
+
+// Global Container (Đồng bộ 100% với cài đặt Container của Elementor)
+.landing-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 10px; // Padding 10px an toàn cho mobile
+  padding-right: 10px;
+  box-sizing: border-box; // Sử dụng border-box để đảm bảo chiều rộng không bị tràn
+}
+
+// Base setup
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  // Khai báo chính xác biến Font Family chuẩn của Kadence Theme
+  font-family: var(
+    --global-font-family,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif
+  );
+}
+
+// Thiết lập font cho các tiêu đề (Sử dụng heading font của Kadence)
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--global-heading-font-family, inherit);
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+}
+
+// Section 1: Hero Banner
+.landing-section-hero {
+  position: relative;
+  width: 100%;
+  min-height: 800px; // Dùng min-height thay vì height fix cứng để tránh tràn
+  display: flex;
+  align-items: center;
+  overflow: hidden; // Đảm bảo hình ảnh không bị tràn ra ngoài khung
+
+  @media (max-width: $breakpoint-tablet) {
+    min-height: 600px;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    min-height: 500px;
+  }
+
+  // Hình ảnh background được nhúng từ HTML
+  .hero-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 1;
+  }
+
+  // Tận dụng container chung cho các phần khác, nhưng Hero cần full width
+  .hero-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 100%; // Cho phép tràn sát viền màn hình
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 80px;
+    padding-bottom: 80px;
+
+    // Sử dụng công thức tính toán khoảng cách tự động để đồng bộ hoàn toàn với .landing-container bên dưới
+    // Dùng 50% thay vì 50vw để loại trừ thanh cuộn (scrollbar) trên Windows, giúp canh lề chuẩn xác đến từng pixel
+    // 590px là một nửa của vùng nội dung 1180px (1200px max-width trừ đi 20px padding)
+    padding-left: max(10px, calc(50% - 590px));
+    padding-right: 60px; // Padding bên phải cho hộp màu xanh
+
+    background: rgba(4, 4, 61, 0.9); // #04043D opacity 90%
+    width: max(
+      75%,
+      calc(50% + 200px)
+    ); // Đảm bảo width đủ lớn để không bị cắt chữ quá sát
+    max-width: 100%;
+
+    // Scale cho tablet
+    @media (max-width: $breakpoint-tablet) {
+      padding-top: 60px;
+      padding-bottom: 60px;
+      padding-right: 40px;
+      width: 90%; // Nới rộng bề ngang để chữ không bị rớt dòng quá nhiều
+    }
+
+    // Scale cho mobile
+    @media (max-width: $breakpoint-mobile) {
+      padding-top: 40px;
+      padding-bottom: 40px;
+      padding-right: 20px;
+      width: 100%;
+    }
+  }
+
+  .hero-subtitle {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: calc(20.8 / 16);
+    color: var(--color-azure-51, #0399ff);
+    margin: 0;
+  }
+
+  .hero-title {
+    font-weight: 700;
+    font-size: clamp(32px, 5vw, 60px);
+    line-height: calc(78 / 60);
+    color: var(--global-palette-btn-hover, #ffffff);
+    margin: 0;
+  }
+
+  .hero-desc {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: calc(20.8 / 16);
+    color: var(--global-palette-btn-hover, #ffffff);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; // Khoảng cách giữa các đoạn p
+
+    p {
+      margin: 0;
+    }
+  }
+}
+
+// Section 2: Process Overview
+.landing-section-process {
+  background: var(--color-grey-94, #e1f3ff);
+  padding: 80px 0;
+
+  @media (max-width: $breakpoint-tablet) {
+    padding: 60px 0;
+  }
+  @media (max-width: $breakpoint-mobile) {
+    padding: 40px 0;
+  }
+
+  .process-title {
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 36px);
+    line-height: calc(46.8 / 36);
+    color: var(--color-blue-25, #34384c);
+    margin: 0 0 20px 0;
+  }
+
+  .process-divider {
+    width: 60px;
+    border-top: 4px solid var(--color-azure-51, #0399ff);
+    margin-bottom: 30px;
+  }
+
+  .process-desc,
+  .process-desc-bottom {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: calc(25.6 / 16);
+    color: var(--color-blue-25, #34384c);
+
+    p {
+      margin: 0 0 20px 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-style: solid;
+      text-decoration-thickness: auto;
+      text-decoration-skip-ink: auto;
+    }
+  }
+
+  .process-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 40px 0;
+    justify-content: center;
+  }
+
+  .process-item {
+    background: var(--global-palette-btn-hover, #ffffff);
+    border-bottom: 9px solid var(--color-azure-51, #0399ff);
+    width: calc(
+      20% - 12px
+    ); // 5 items trên 1 hàng (100% / 5) trừ đi (15px * 4 / 5) gap
+    height: 441px;
+    display: flex;
+    flex-direction: column;
+
+    // Scale linh hoạt cho các màn hình tablet/nhỏ hơn để tránh item bị quá chật hẹp
+    @media (max-width: 1200px) {
+      width: calc(33.333% - 10px); // Rớt xuống 3 cột trên desktop nhỏ
+      height: auto;
+      min-height: 441px;
+    }
+
+    // Responsive Tablet
+    @media (max-width: $breakpoint-tablet) {
+      width: calc(50% - 8px); // 2 cột
+      min-height: 400px;
+    }
+
+    // Responsive Mobile
+    @media (max-width: $breakpoint-mobile) {
+      width: 100%; // 1 item trên 1 hàng
+      height: auto;
+      min-height: auto;
+    }
+
+    img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      object-position: center;
+      display: block; // Chống khoảng trống dư thừa
+    }
+
+    .item-content {
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .item-title {
+      font-weight: 700;
+      font-size: 16px;
+      line-height: calc(20.8 / 16);
+      color: var(--color-grey-15-4, #252525);
+      text-align: center;
+      margin: 0 0 15px 0;
+      min-height: 42px; // Đảm bảo title luôn cao tối thiểu 2 dòng
+      display: block; // Chữ sẽ luôn bắt đầu từ sát lề trên
+    }
+
+    .item-desc {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: calc(24 / 15);
+      color: var(--color-blue-25, #34384c);
+      text-align: center;
+      margin: 0;
+    }
+  }
+}
+
+// Section 3: Capabilities
+.landing-section-capabilities {
+  padding: 80px 0;
+  background: #ffffff;
+
+  @media (max-width: $breakpoint-tablet) {
+    padding: 60px 0;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: 40px 0;
+  }
+
+  .cap-header {
+    margin-bottom: 50px;
+
+    @media (max-width: $breakpoint-mobile) {
+      margin-bottom: 30px;
+    }
+  }
+
+  .cap-title {
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 36px);
+    line-height: calc(46.8 / 36);
+    color: var(--color-blue-25, #34384c);
+    margin: 0 0 20px 0;
+  }
+
+  .cap-divider {
+    width: 60px;
+    border-top: 4px solid var(--color-azure-51, #0399ff);
+  }
+
+  .cap-row {
+    display: flex;
+    gap: 40px;
+    align-items: stretch; // Sửa thành stretch để sidebar kéo dài toàn bộ chiều cao của section, giúp sticky scroll hoạt động
+
+    @media (max-width: $breakpoint-tablet) {
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    @media (max-width: $breakpoint-mobile) {
+      gap: 20px;
+    }
+  }
+
+  .cap-sidebar {
+    width: 100%;
+    max-width: 520px;
+    flex-shrink: 0;
+    position: relative; // Cần cho inner sticky
+
+    @media (max-width: $breakpoint-tablet) {
+      max-width: 100%;
+      margin-bottom: 40px;
+    }
+  }
+
+  .cap-sidebar-inner {
+    position: sticky;
+    // Header cao 90px + 40px khoảng cách an toàn (gap) = 130px
+    top: 130px;
+  }
+
+  .cap-list {
+    background: #ffffff;
+    box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .cap-list-item {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    gap: 12px;
+    border-bottom: 1px solid #eaeaea;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: calc(25.6 / 16);
+    color: var(--color-blue-25, #34384c);
+    min-height: 85.375px;
+    box-sizing: border-box;
+
+    @media (max-width: $breakpoint-mobile) {
+      padding: 12px;
+      min-height: 70px;
+      gap: 10px;
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .cap-icon {
+      width: 18px; // Khớp với viewBox của SVG
+      height: 14px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      // Style theo đúng thông số Font Icon từ Figma
+      font-weight: 900;
+      font-size: 16px;
+      line-height: 14px;
+      vertical-align: middle;
+      color: var(
+        --color-azure-51,
+        #0399ff
+      ); // Dùng color thay vì background để tô màu nét chữ/icon
+
+      // Ép SVG hiển thị chính xác theo style trên
+      svg {
+        width: 100%;
+        height: 100%;
+
+        path {
+          fill: currentColor; // Tự động lấy mã màu từ thuộc tính color ở trên
+        }
+      }
+    }
+  }
+
+  .cap-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    @media (max-width: $breakpoint-mobile) {
+      gap: 30px;
+    }
+  }
+
+  .cap-box {
+    .box-title {
+      font-weight: 600;
+      font-size: clamp(20px, 3vw, 24px);
+      line-height: calc(25.6 / 24);
+      color: var(--color-blue-25, #34384c);
+      margin: 0 0 20px 0;
+    }
+
+    .box-desc {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: calc(25.6 / 16);
+      color: var(--color-blue-25, #34384c);
+
+      &.mt-20 {
+        margin-top: 20px;
+
+        @media (max-width: $breakpoint-mobile) {
+          margin-top: 15px;
+        }
+      }
+
+      p {
+        margin: 0 0 20px 0;
+
+        @media (max-width: $breakpoint-mobile) {
+          margin: 0 0 15px 0;
+        }
+      }
+
+      ul {
+        padding-left: 20px;
+        margin: 0 0 20px 0;
+
+        @media (max-width: $breakpoint-mobile) {
+          padding-left: 15px;
+          margin: 0 0 15px 0;
+        }
+
+        li {
+          margin-bottom: 10px;
+          line-height: calc(25.6 / 16);
+          position: relative;
+          list-style: none;
+          font-size: 16px;
+
+          &::before {
+            content: "";
+            position: absolute;
+            left: -18px;
+            top: 10px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: var(--color-azure-51, #0399ff);
+          }
+
+          strong {
+            font-weight: 700;
+          }
+        }
+      }
+    }
+
+    .box-img-full {
+      width: 100%;
+      max-width: 635px;
+      height: auto;
+      display: block;
+      margin-top: 20px;
+    }
+
+    .img-with-bg {
+      position: relative;
+      margin-top: 80px; // Tăng khoảng cách để nền xanh lồi lên không đè vào chữ
+      margin-bottom: 80px;
+      width: 76.4%;
+
+      @media (max-width: $breakpoint-tablet) {
+        width: 85%;
+        margin-top: 70px;
+        margin-bottom: 70px;
+      }
+
+      @media (max-width: $breakpoint-mobile) {
+        width: calc(
+          100% - 40px
+        ); // Cố định chiều rộng an toàn tuyệt đối với margin-x 20px
+        margin-top: 50px;
+        margin-bottom: 50px;
+        margin-left: 20px; // Đẩy vào giữa
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+        display: block;
+        position: relative;
+        z-index: 2;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      }
+
+      .bg-shape {
+        position: absolute;
+        width: 119.8%;
+        height: 129.7%;
+        background: var(--color-azure-51, #0399ff);
+        z-index: 1;
+        top: -14.86%;
+
+        @media (max-width: $breakpoint-tablet) {
+          width: 110%; // Giảm độ thò ra
+          height: 120%;
+          top: -10%;
+        }
+
+        @media (max-width: $breakpoint-mobile) {
+          width: calc(100% + 10px); // Rất nhỏ để không bao giờ bị tràn
+          height: 112%;
+          top: -6%;
+        }
+      }
+
+      &.bg-top-left {
+        margin-left: 23.6%;
+        margin-right: 0;
+
+        @media (max-width: $breakpoint-tablet) {
+          margin-left: 10%; // Thu hẹp khoảng thò ra
+          width: 90%; // 10% margin + 90% width = 100% container (Vừa khít!)
+        }
+
+        @media (max-width: $breakpoint-mobile) {
+          margin-left: 15px; // Cách lề cứng
+          width: calc(100% - 15px); // Vừa khít màn hình
+        }
+
+        .bg-shape {
+          left: -30.9%; // Trở về vị trí 0 của container
+
+          @media (max-width: $breakpoint-tablet) {
+            left: -11.11%; // 11.11% của 90% = 10%. Trở về sát lề trái container!
+          }
+
+          @media (max-width: $breakpoint-mobile) {
+            left: -15px; // Trở về sát lề trái container
+            width: calc(100% - 15px); // Không bị tràn lề phải
+          }
+        }
+      }
+
+      &.bg-bottom-right {
+        margin-right: 23.6%;
+        margin-left: 0;
+
+        @media (max-width: $breakpoint-tablet) {
+          margin-right: 10%;
+          width: 90%;
+        }
+
+        @media (max-width: $breakpoint-mobile) {
+          margin-right: 15px;
+          width: calc(100% - 15px);
+        }
+
+        .bg-shape {
+          right: -30.9%;
+
+          @media (max-width: $breakpoint-tablet) {
+            right: -11.11%;
+          }
+
+          @media (max-width: $breakpoint-mobile) {
+            right: -15px;
+            width: calc(100% - 15px);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Section 4: Value-Added Capabilities
+.landing-section-value-added {
+  padding: 80px 0;
+  background: var(--color-grey-94, #e1f3ff);
+
+  @media (max-width: $breakpoint-tablet) {
+    padding: 60px 0;
+  }
+  @media (max-width: $breakpoint-mobile) {
+    padding: 40px 0;
+  }
+
+  .va-header {
+    margin-bottom: 50px;
+    @media (max-width: $breakpoint-mobile) {
+      margin-bottom: 30px;
+    }
+  }
+
+  .va-title {
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 36px);
+    line-height: calc(46.8 / 36);
+    color: var(--color-blue-25, #34384c);
+    margin: 0 0 20px 0;
+  }
+
+  .va-divider {
+    width: 60px;
+    border-top: 4px solid var(--color-azure-51, #0399ff);
+  }
+
+  .va-box {
+    background: #ffffff;
+    padding: 30px 50px;
+    margin-bottom: 40px; // Cách nhau 40px theo yêu cầu
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: $breakpoint-tablet) {
+      padding: 40px;
+      margin-bottom: 30px;
+    }
+    @media (max-width: $breakpoint-mobile) {
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+  }
+
+  .va-box-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 20px;
+
+    .va-icon {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+    }
+
+    .va-box-title {
+      font-weight: 600;
+      font-size: clamp(20px, 3vw, 24px);
+      line-height: calc(25.6 / 24);
+      color: var(--color-blue-25, #34384c);
+      margin: 0;
+    }
+  }
+
+  .va-box-desc {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: calc(25.6 / 16);
+    color: var(--color-blue-25, #34384c);
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .va-features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+
+    @media (max-width: $breakpoint-tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: $breakpoint-mobile) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .va-feature-item {
+    background: var(--color-grey-94, #e1f3ff);
+    border-bottom: 9px solid var(--color-azure-51, #0399ff);
+    display: flex;
+    flex-direction: column;
+    height: 100%; // Đảm bảo các item cao bằng nhau
+  }
+
+  .va-feature-text {
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+  }
+
+  .va-feature-title {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: calc(20.8 / 16);
+    color: var(--color-grey-15-4, #252525);
+    margin: 0 0 15px 0;
+  }
+
+  .va-feature-desc {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: calc(24 / 15);
+    color: var(--color-blue-25, #34384c);
+    margin: 0;
+  }
+
+  .va-feature-img {
+    width: 100%;
+    height: 200px; // Kích thước theo yêu cầu
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; // Nếu lớn hơn thì lấy ở giữa (chiếu)
+      object-position: center;
+      display: block;
+    }
+  }
+}
+
+// Section 5: Quality Assurance
+.landing-section-quality {
+  padding: 80px 0;
+  background: #ffffff;
+
+  @media (max-width: $breakpoint-tablet) {
+    padding: 60px 0;
+  }
+  @media (max-width: $breakpoint-mobile) {
+    padding: 40px 0;
+  }
+
+  .quality-row {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 60px; // Cách nhau 60px trên desktop
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: $breakpoint-tablet) {
+      flex-direction: column;
+      gap: 40px;
+      margin-bottom: 40px; // Giảm khoảng cách row trên tablet
+    }
+
+    @media (max-width: $breakpoint-mobile) {
+      gap: 30px;
+      margin-bottom: 30px; // Giảm khoảng cách row trên mobile cho hợp lý
+    }
+  }
+
+  // Cột nội dung và hình ảnh chiếm 50%
+  .quality-col-img,
+  .quality-col-text {
+    flex: 1;
+    width: 100%;
+  }
+
+  .quality-col-img {
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  }
+
+  .quality-title {
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 36px);
+    line-height: calc(46.8 / 36);
+    color: var(--color-blue-25, #34384c);
+    margin: 0 0 20px 0;
+  }
+
+  .quality-divider {
+    width: 60px;
+    border-top: 4px solid var(--color-azure-51, #0399ff);
+    margin-bottom: 24px;
+  }
+
+  .quality-subtitle {
+    font-weight: 600;
+    font-size: clamp(20px, 3vw, 24px);
+    line-height: calc(25.6 / 24);
+    color: var(--color-blue-25, #34384c);
+    margin: 0 0 20px 0;
+  }
+
+  .quality-desc {
+    font-weight: 400;
+    font-size: 16px; // Giữ chuẩn tuyệt đối không dưới 16px
+    line-height: calc(25.6 / 16);
+    color: var(--color-blue-25, #34384c);
+
+    p {
+      margin: 0 0 20px 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-style: solid;
+      text-decoration-thickness: 1px;
+    }
+
+    ul {
+      padding-left: 20px;
+      margin: 0;
+
+      li {
+        margin-bottom: 15px;
+        position: relative;
+        list-style: none;
+
+        &::before {
+          content: "";
+          position: absolute;
+          left: -20px;
+          top: 10px;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: var(--color-azure-51, #0399ff);
+        }
+      }
+    }
+  }
+
+  // Row 2 Image offset layout (Ảnh nổi và ảnh chìm)
+  .quality-offset-wrap {
+    position: relative;
+    width: 100%;
+    // Đã gỡ bỏ max-width và margin để ảnh được đẩy sát ra tận góc của container
+    aspect-ratio: 540 / 440; // Tạo khoảng không chứa 2 ảnh (457x372) mọc chéo nhau
+
+    @supports not (aspect-ratio: 1) {
+      padding-bottom: 81%; // Fallback
+    }
+
+    .img-bg-layer {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 85%; // Tỷ lệ xấp xỉ 457/540
+      height: 85%;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(3, 153, 255, 0.8); // #0399FFCC (Mã hex CC = 80% độ mờ)
+      }
+    }
+
+    .img-fg-layer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 85%;
+      height: 85%;
+      object-fit: cover;
+      z-index: 2;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1); // Nổi ảnh lên
+    }
+  }
+}
+
+// Section 6: CTA
+.landing-section-cta {
+  position: relative;
+  padding: 80px 0;
+  min-height: 566px; // Thiết lập chiều cao tuyệt đối như yêu cầu
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  @media (max-width: $breakpoint-tablet) {
+    padding: 60px 0;
+    min-height: auto; // Giải phóng chiều cao trên mobile/tablet để không bị vỡ layout
+  }
+  @media (max-width: $breakpoint-mobile) {
+    padding: 40px 0;
+  }
+
+  .cta-bg-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: #000000ba; // Màu nền mờ đen 73% (BA)
+    }
+  }
+
+  .cta-content-wrapper {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 960px; // Bo gọn chữ lại để tối ưu hóa việc đọc
+    margin: 0 auto;
+  }
+
+  .cta-title {
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 36px);
+    line-height: calc(46.8 / 36);
+    color: var(--color-grey-94, #e1f3ff);
+    text-align: center;
+    margin: 0 0 30px 0;
+  }
+
+  .cta-desc {
+    font-weight: 400;
+    font-size: 16px; // Giữ chuẩn quy định 16px
+    line-height: calc(25.6 / 16);
+    color: var(--global-palette-btn-hover, #ffffff);
+    text-align: center;
+    margin: 0 0 40px 0;
+
+    p {
+      margin: 0 0 20px 0;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-style: solid;
+    }
+  }
+
+  .cta-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+
+    @media (max-width: $breakpoint-mobile) {
+      flex-direction: column;
+      width: 100%;
+      max-width: 350px;
+    }
+  }
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 40px;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 16px; // Không dưới 16px
+    line-height: 1;
+    color: var(--global-palette-btn-hover, #ffffff);
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-sizing: border-box;
+
+    @media (max-width: $breakpoint-mobile) {
+      width: 100%;
+      padding: 16px 20px;
+    }
+
+    &.btn-primary {
+      background: var(--color-azure-51, #0399ff);
+      // Nền tảng border trong suốt để tránh việc lúc hover thêm border bị giật khung
+      border: 1px solid transparent;
+      border-top: 1px solid var(--global-palette-btn-hover, #ffffff);
+
+      &:hover {
+        background: transparent;
+        border: 1px solid var(--color-grey-96-2, #f5f5f5); // Style của Button 2
+      }
+    }
+
+    &.btn-secondary {
+      background: transparent;
+      border: 1px solid var(--color-grey-96-2, #f5f5f5);
+
+      &:hover {
+        background: var(--color-azure-51, #0399ff);
+        border: 1px solid transparent;
+        border-top: 1px solid var(--global-palette-btn-hover, #ffffff); // Style của Button 1
+      }
+    }
+  }
+}
+
+// Section 7: FAQ
+.landing-section-faq {
+  padding: 80px 0;
+  margin-bottom: 50px;
+  background: var(--color-blue-50, #2f4fd0);
+
+  @media (max-width: $breakpoint-tablet) {
+    padding: 60px 0;
+    margin-bottom: 40px;
+  }
+  @media (max-width: $breakpoint-mobile) {
+    padding: 40px 0;
+    margin-bottom: 30px;
+  }
+
+  .faq-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+    @media (max-width: $breakpoint-mobile) {
+      margin-bottom: 30px;
+    }
+  }
+
+  .faq-title {
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 36px);
+    line-height: calc(46.8 / 36);
+    color: var(--global-palette-btn-hover, #ffffff); // Text trắng
+    text-align: center;
+    margin: 0 0 20px 0;
+  }
+
+  .faq-divider {
+    width: 60px;
+    border-top: 4px solid var(--color-azure-51, #0399ff);
+  }
+
+  .faq-list {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    background: #f4f5f7;
+    border-radius: 8px;
+    margin-bottom: 15px; // Cách nhau 15px theo yêu cầu
+    overflow: hidden;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .faq-question {
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: #ebebeb;
+    }
+
+    h4 {
+      font-weight: 700;
+      font-size: clamp(16px, 2vw, 18px); // Ít nhất 16px, bự hơn tẹo cho dễ đọc
+      line-height: calc(26 / 18);
+      color: var(--color-blue-25, #34384c);
+      margin: 0;
+      padding-right: 20px;
+    }
+  }
+
+  .faq-icon {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      background: var(--color-azure-51, #0399ff);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 2px;
+    }
+
+    &::before {
+      width: 14px;
+      height: 2.5px;
+    }
+
+    &::after {
+      width: 2.5px;
+      height: 14px;
+      transition: all 0.3s ease;
+    }
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+
+  .faq-answer-inner {
+    padding: 0 25px;
+
+    .answer-line {
+      border-top: 1px solid #dcdcdc; // Line gạch ngang theo thiết kế
+    }
+
+    p {
+      font-weight: 400;
+      font-size: 16px; // Giữ chuẩn quy tắc
+      line-height: calc(25.6 / 16);
+      color: var(--color-blue-25, #34384c);
+      margin: 20px 0; // Margin nội dung câu trả lời 20px
+    }
+
+    ul {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 0 0 20px 0;
+      padding-left: 20px;
+      list-style-type: none;
+
+      @media (max-width: $breakpoint-mobile) {
+        grid-template-columns: 1fr; // Thu về 1 cột trên điện thoại
+      }
+
+      li {
+        position: relative;
+        font-weight: 700;
+        color: var(--color-blue-25, #34384c);
+        margin-bottom: 0;
+
+        &::before {
+          content: "";
+          position: absolute;
+          left: -15px;
+          top: 10px;
+          width: 6px;
+          height: 6px;
+          background: var(--color-azure-51, #0399ff);
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+
+  .faq-item.active {
+    .faq-icon::after {
+      transform: translate(-50%, -50%) rotate(90deg);
+      opacity: 0; // Xoay và làm mờ nét dọc để tạo dấu TRỪ
+    }
+  }
+}
