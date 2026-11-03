@@ -6,7 +6,7 @@
  * Template for displaying a custom landing page using ACF Flexible Content.
  */
 
-// Exit if accessed directly.
+// Exit if accessed directly. 
 defined('ABSPATH') || exit;
 
 
