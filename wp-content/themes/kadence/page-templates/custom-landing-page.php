@@ -27,8 +27,13 @@ get_header();
 				$subtitle = get_sub_field('subtitle');
 				$title = get_sub_field('title');
 				$desc = get_sub_field('description');
+                $bg_color = get_sub_field('tms_background_color');
+                $style_attr = '';
+                if ($bg_color) {
+                    $style_attr = ' style="background: ' . esc_attr($bg_color) . ';"';
+                }
 	?>
-				<section class="landing-section-hero">
+				<section class="landing-section-hero" <?php echo $style_attr; ?>>
 					<?php
 					if ($bg_id) {
 						echo wp_get_attachment_image($bg_id, 'full', false, ['class' => 'hero-bg-img']);
@@ -62,13 +67,19 @@ get_header();
 				$title = get_sub_field('title');
 				$desc_top = get_sub_field('description_top');
 				$desc_bottom = get_sub_field('description_bottom');
+                $bg_color = get_sub_field('tms_background_color');
+                $style_attr = '';
+                if ($bg_color) {
+                    $style_attr = ' style="background: ' . esc_attr($bg_color) . ';"';
+                }
+                $cols = get_sub_field('tms_columns') ?: '5';
 			?>
-				<section class="landing-section-process">
+				<section class="landing-section-process" <?php echo $style_attr; ?>>
 					<div class="landing-container">
 						<?php if ($title) : ?>
 							<h2 class="process-title"><?php echo wp_kses_post($title); ?></h2>
+                            <div class="process-divider"></div>
 						<?php endif; ?>
-						<div class="process-divider"></div>
 
 						<?php if ($desc_top) : ?>
 							<div class="process-desc">
@@ -77,7 +88,7 @@ get_header();
 						<?php endif; ?>
 
 						<?php if (have_rows('process_items')) : ?>
-							<div class="process-grid">
+							<div class="process-grid cols-<?php echo esc_attr($cols); ?>">
 								<?php while (have_rows('process_items')) : the_row();
 									$img_id = get_sub_field('image');
 									$pi_title = get_sub_field('title');
@@ -113,14 +124,19 @@ get_header();
 			// ==========================================
 			elseif (get_row_layout() == 'capabilities') {
 				$title = get_sub_field('title');
+                $bg_color = get_sub_field('tms_background_color');
+                $style_attr = '';
+                if ($bg_color) {
+                    $style_attr = ' style="background: ' . esc_attr($bg_color) . ';"';
+                }
 			?>
-				<section class="landing-section-capabilities">
+				<section class="landing-section-capabilities" <?php echo $style_attr; ?>>
 					<div class="landing-container">
 						<div class="cap-header">
 							<?php if ($title) : ?>
 								<h2 class="cap-title"><?php echo wp_kses_post($title); ?></h2>
+                                <div class="cap-divider"></div>
 							<?php endif; ?>
-							<div class="cap-divider"></div>
 						</div>
 
 						<div class="cap-row">
@@ -204,14 +220,23 @@ get_header();
 			// ==========================================
 			elseif (get_row_layout() == 'value_added') {
 				$title = get_sub_field('title');
+                $description = get_sub_field('description');
+                $bg_color = get_sub_field('tms_background_color');
+                $style_attr = '';
+                if ($bg_color) {
+                    $style_attr = ' style="background: ' . esc_attr($bg_color) . ';"';
+                }
 			?>
-				<section class="landing-section-value-added">
+				<section class="landing-section-value-added" <?php echo $style_attr; ?>>
 					<div class="landing-container">
 						<div class="va-header">
 							<?php if ($title) : ?>
 								<h2 class="va-title"><?php echo wp_kses_post($title); ?></h2>
+                                <div class="va-divider"></div>
 							<?php endif; ?>
-							<div class="va-divider"></div>
+                            <?php if ($description) : ?>
+                                <div class="va-description"><?php echo wp_kses_post($description); ?></div>
+                            <?php endif; ?>
 						</div>
 
 						<?php if (have_rows('boxes')) : ?>
@@ -220,8 +245,13 @@ get_header();
 								$box_title = get_sub_field('title');
 								$desc = get_sub_field('description');
 								$has_grid = get_sub_field('has_features_grid');
+                                $bg_color_item = get_sub_field('tms_background_color_item');
+                                $style_attr_item = '';
+                                if ($bg_color_item) {
+                                    $style_attr_item = ' style="background: ' . esc_attr($bg_color_item) . ';"';
+                                }
 							?>
-								<div class="va-box">
+								<div class="va-box" <?php echo $style_attr_item; ?>>
 									<div class="va-box-header">
 										<?php if ($icon_id) : ?>
 											<?php echo wp_get_attachment_image($icon_id, 'thumbnail', false, ['class' => 'va-icon']); ?>
@@ -282,8 +312,13 @@ get_header();
 				$desc2 = get_sub_field('description_2');
 				$bg_img = get_sub_field('bg_image');
 				$fg_img = get_sub_field('fg_image');
+                $bg_color = get_sub_field('tms_background_color');
+                $style_attr = '';
+                if ($bg_color) {
+                    $style_attr = ' style="background: ' . esc_attr($bg_color) . ';"';
+                }
 			?>
-				<section class="landing-section-quality">
+				<section class="landing-section-quality" <?php echo $style_attr; ?>>
 					<div class="landing-container">
 						<!-- Row 1 -->
 						<div class="quality-row row-1">
@@ -293,8 +328,8 @@ get_header();
 							<div class="quality-col-text">
 								<?php if ($title) : ?>
 									<h2 class="quality-title"><?php echo wp_kses_post($title); ?></h2>
+                                    <div class="quality-divider"></div>
 								<?php endif; ?>
-								<div class="quality-divider"></div>
 
 								<?php if ($sub1) : ?>
 									<h3 class="quality-subtitle"><?php echo wp_kses_post($sub1); ?></h3>
@@ -309,27 +344,29 @@ get_header();
 						</div>
 
 						<!-- Row 2 -->
-						<div class="quality-row row-2">
-							<div class="quality-col-text">
-								<?php if ($sub2) : ?>
-									<h3 class="quality-subtitle"><?php echo wp_kses_post($sub2); ?></h3>
-								<?php endif; ?>
+                        <?php if ($sub2 || $desc2 || $bg_img || $fg_img) : ?>
+                            <div class="quality-row row-2">
+                                <div class="quality-col-text">
+                                    <?php if ($sub2) : ?>
+                                        <h3 class="quality-subtitle"><?php echo wp_kses_post($sub2); ?></h3>
+                                    <?php endif; ?>
 
-								<?php if ($desc2) : ?>
-									<div class="quality-desc">
-										<?php echo wp_kses_post($desc2); ?>
-									</div>
-								<?php endif; ?>
-							</div>
-							<div class="quality-col-img">
-								<div class="quality-offset-wrap">
-									<div class="img-bg-layer">
-										<?php if ($bg_img) echo wp_get_attachment_image($bg_img, 'large'); ?>
-									</div>
-									<?php if ($fg_img) echo wp_get_attachment_image($fg_img, 'large', false, ['class' => 'img-fg-layer']); ?>
-								</div>
-							</div>
-						</div>
+                                    <?php if ($desc2) : ?>
+                                        <div class="quality-desc">
+                                            <?php echo wp_kses_post($desc2); ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="quality-col-img">
+                                    <div class="quality-offset-wrap">
+                                        <div class="img-bg-layer">
+                                            <?php if ($bg_img) echo wp_get_attachment_image($bg_img, 'large'); ?>
+                                        </div>
+                                        <?php if ($fg_img) echo wp_get_attachment_image($fg_img, 'large', false, ['class' => 'img-fg-layer']); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
 					</div>
 				</section>
 			<?php
